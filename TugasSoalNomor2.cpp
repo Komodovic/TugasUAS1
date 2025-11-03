@@ -4,17 +4,19 @@ using namespace std;
 int main() {
     int jumlahMotor, jumlahMobil;
     int jamMasuk, jamKeluar;
-    int durasi;
+    int durasi, lamaHari;
 
     cout << "Masukkan jumlah motor : ";
     cin >> jumlahMotor;
     cout << "Masukkan jumlah mobil : ";
     cin >> jumlahMobil;
 
-    cout << "Input jam masuk (format 24 jam): ";
+    cout << "Masukkan jam masuk (format 24 jam): ";
     cin >> jamMasuk;
-    cout << "Input jam keluar (format 24 jam): ";
+    cout << "Masukkan jam keluar (format 24 jam): ";
     cin >> jamKeluar;
+    cout << "Masukkan selisih hari (misalnya 0 jika masih di hari yang sama): ";
+    cin >> lamaHari;
 
     // Validasi input jam
     if (jamMasuk < 0 || jamMasuk > 23 || jamKeluar < 0 || jamKeluar > 23) {
@@ -22,11 +24,11 @@ int main() {
         return 0;
     }
 
-    // Hitung durasi parkir
+    // Hitung durasi total dalam jam
     if (jamKeluar >= jamMasuk) {
-        durasi = jamKeluar - jamMasuk;
+        durasi = (lamaHari * 24) + (jamKeluar - jamMasuk);
     } else {
-        durasi = (24 - jamMasuk) + jamKeluar; // parkir melewati tengah malam
+        durasi = (lamaHari * 24) + ((24 - jamMasuk) + jamKeluar);
     }
 
     // Hitung biaya parkir
@@ -34,7 +36,8 @@ int main() {
     int biayaMobil = jumlahMobil * durasi * 5000;
     int total = biayaMotor + biayaMobil;
 
-    cout << "\nTotal biaya parkir: Rp " << total << " (" << durasi << " jam)" << endl;
+    cout << "\nTotal biaya parkir: Rp " << total;
+    cout << " (" << durasi << " jam = " << durasi / 24 << " hari " << durasi % 24 << " jam)" << endl;
 
     return 0;
 }
